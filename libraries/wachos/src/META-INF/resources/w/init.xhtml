@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="pageTitle" required="true"/>
+        <composite:attribute name="fontSize" required="true"/>
+        <composite:attribute name="fontFamily" required="true"/>
+        <composite:attribute name="titleIcon" required="true"/>
+        <composite:attribute name="theme" required="true"/>
+        <composite:attribute name="session" type="gov.mil.navy.nswcdd.wachos.tools.WSession" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:head>
+            <title>#{cc.attrs.pageTitle}</title>
+            <link rel="icon" href="#{cc.attrs.titleIcon}" type="image/x-icon" />
+            <link type="text/css" rel="stylesheet" href="themes/#{cc.attrs.theme}.css" id="qtheme"/>
+            <script type="text/javascript" src="wjs/jquery.js?ln=primefaces&amp;v=6.1"></script>
+            <script type="text/javascript" src="wjs/jquery-plugins.js?ln=primefaces&amp;v=6.1"></script>
+            <script type="text/javascript" src="wjs/core.js?ln=primefaces&amp;v=6.1"></script>
+            <link type="text/css" rel="stylesheet" href="wjs/components.css?ln=primefaces&amp;v=6.1" />
+            <script type="text/javascript" src="wjs/components.js?ln=primefaces&amp;v=6.1"></script>
+            <script type="text/javascript">if (window.PrimeFaces){PrimeFaces.settings.locale = 'en_US'; PrimeFaces.settings.projectStage = 'Development'; }</script>
+            <script src="wjs/jquery.min.js"></script>
+            <script>var $jq = jQuery.noConflict();</script>
+            <script src="wjs/jquery-ui.min.js"></script>
+            <script src="wjs/jquery.mousewheel.min.js"></script>
+            <script src="wjs/jquery.ui.scrolltabs.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/jquery.qtip.min.css" />
+            <script src="wjs/jquery.qtip.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/jquery.contextMenu.css" />
+            <script src="wjs/jquery.contextMenu.min.js"></script>
+            <script src="wjs/chart.min.js"></script>
+            <script src="wjs/svg-pan-zoom-container.js"></script>
+            <script src="wjs/jstree.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/jstree.min.css" />
+            <script src="wjs/Sortable.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/highlight.min.css" />
+            <script src="wjs/highlight.min.js"></script>
+            <link rel="stylesheet" href="wjs/katex.min.css"/>
+            <script src="wjs/katex.min.js"></script>
+            <link rel="stylesheet" href="wjs/quill.snow.css"/>
+            <script src="wjs/quill.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/slickgrid.min.css"/>
+            <script src="wjs/slickgrid.min.js"></script>
+
+            <style type="text/css">
+                .wfontsize { font-size: #{cc.attrs.fontSize}px }
+                .wfontfamily { font-family: #{cc.attrs.fontFamily} }
+                .ui-selectlistbox-item,.ui-widget,.ui-widget .ui-widget { font-size: #{cc.attrs.fontSize}px; font-family: #{cc.attrs.fontFamily} }
+                .ui-scroll-tabs-view { z-index: 1; overflow: hidden; }
+                .ui-scroll-tabs-view .ui-widget-header { border: none; background: transparent; }
+                .ui-scroll-tabs-header { position: relative; overflow: hidden; }
+                .ui-scroll-tabs-header .stNavMain { position: absolute; top: 0; z-index: 2; height: 100%; opacity: 0; transition: left .5s, right .5s, opacity .8s; transition-timing-function: swing; }
+                .ui-scroll-tabs-header .stNavMain button { height: 100%; padding: 0; }
+                .ui-scroll-tabs-header .stNavMainLeft { left: -250px; }
+                .ui-scroll-tabs-header .stNavMainLeft.stNavVisible { left: 0; opacity: 1; }
+                .ui-scroll-tabs-header .stNavMainRight { right: -250px; }
+                .ui-scroll-tabs-header .stNavMainRight.stNavVisible { right: 0; opacity: 1; }
+                .ui-scroll-tabs-header ul.ui-tabs-nav { position: relative; white-space: nowrap; }
+                .ui-scroll-tabs-header ul.ui-tabs-nav li { display: inline-block; float: none; }
+                .ui-scroll-tabs-header ul.ui-tabs-nav li.stHasCloseBtn a { padding-right: 2px; }
+                .ui-scroll-tabs-header ul.ui-tabs-nav li span.stCloseBtn { float: left; padding: 0px 0px; border: none; cursor: pointer; }
+                .ui-tabs .ui-tabs-nav li { margin: 0px 1px; }
+                .ui-tabs .ui-tabs-nav li a { padding: 0 0 0 3px; margin: 0; }
+                .ui-tabs .ui-tabs-nav li .ui-icon { margin: 0; }
+                .ui-tabs .ui-tabs-panel { padding: 3px; }
+                .ui-datepicker { z-index: 9999 !important; }
+                .wcSplitterBar { border: 1px solid #777 !important; background-color: #777 !important; z-index: 0 !important }
+                .wcFrameButton { z-index: 0 !important; }
+                .wcPanelBackground { overflow: hidden !important }
+                .tftable { border-collapse: collapse; }
+                .tftable > tbody > tr > td, .tftable > tbody > tr > th { border: 1px solid #8c8c8c; padding: 3px; white-space: nowrap; }
+                .tfgrid { border-collapse: collapse; }
+                .tfgrid > tbody > tr > td { border: 0px; padding: 2px; white-space: nowrap; }
+                .myselect { padding-right:16px; -webkit-appearance: none; -moz-appearance: none; appearance: none; font-size: #{cc.attrs.fontSize}px !important; font-family: #{cc.attrs.fontFamily} !important; }
+                select::-ms-expand { display:none; }
+                .qtip { max-width: 600px !important; }
+                .tftree { overflow:auto; border:1px solid silver; min-height:100px; }
+                .ui-widget.context-menu-hover { color: white; background: gray; }
+                .ui-slider .ui-slider-handle { z-index: 0; }
+                .ui-slider .ui-slider-range { z-index: 0; }
+                .tfsplash .ui-dialog-titlebar { display:none }
+                input[type="color"] { -webkit-appearance: none;	border: none; }
+                input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+                input[type="color"]::-webkit-color-swatch { border: none; }
+                .hljs { font-size: #{cc.attrs.fontSize}px }
+                .ql-container { min-height: 10rem; height: 100%; flex: 1; display: flex; flex-direction: column; }
+                .ql-editor { height: 100%; flex: 1; overflow-y: auto; width: 100%; }
+                .ql-formats { margin-right: 5px !important }
+                ::-webkit-scrollbar-track-piece  { background-color: #CECECE; }
+                ::-webkit-scrollbar-track { box-shadow: inset 0 0 5px grey !important; border-radius: 50px !important; }
+                ::-webkit-scrollbar-thumb { border-radius: 50px !important; }
+            </style>
+            <script>
+                //
+                const tfSortableTreeNodes = [];
+
+                //set Chart defaults
+                Chart.defaults.animation = false;
+                Chart.defaults.plugins.legend.display = false;
+                Chart.defaults.backgroundColor = 'white';
+                Chart.defaults.maintainAspectRatio = false;
+
+                //keep track of where the mouse is
+                var tfMouseEvent;
+                $(document).mousemove(function (e) {
+                    tfMouseEvent = e;
+                }).mouseover();
+
+                //make dialogs draggable to off the screen
+                if (!$jq.ui.dialog.prototype._makeDraggableBase) {
+                    $jq.ui.dialog.prototype._makeDraggableBase = $jq.ui.dialog.prototype._makeDraggable;
+                    $jq.ui.dialog.prototype._makeDraggable = function () {
+                        this._makeDraggableBase();
+                        this.uiDialog.draggable("option", "containment", false);
+                    };
+                }
+
+                //throttle events that you don't want called too frequently
+                var tfThrottling = false;
+                function tfThrottle(func, limit) {
+                    if (!tfThrottling) {
+                        tfThrottling = true;
+                        setTimeout(function () {
+                            func();
+                            tfThrottling = false;
+                        }, limit);
+                    }
+                }
+
+                //manage text file downloading
+                var tfDownloadFileName = "file.txt";
+                var tfDownloadContent = "The content of the file to be downloaded";
+
+                function tfDownload(mime_type) {
+                    mime_type = mime_type || "text/plain";
+                    var blob = new Blob([tfDownloadContent], {type: mime_type});
+                    var dlink = document.createElement('a');
+                    dlink.download = tfDownloadFileName;
+                    dlink.href = window.URL.createObjectURL(blob);
+                    dlink.onclick = function (e) {
+                        // revokeObjectURL needs a delay to work properly
+                        var that = this;
+                        setTimeout(function () {
+                            window.URL.revokeObjectURL(that.href);
+                        }, 1500);
+                    };
+
+                    dlink.click();
+                    dlink.remove();
+                }
+                
+                function changeTheme(filename,id) {
+                    var elem=document.createElement("link");
+                    elem.id=id;
+                    elem.rel="stylesheet";
+                    elem.type="text/css";
+                    elem.href=filename;
+                    return elem;
+                }
+                
+                function eval#{sessionBean.getHashCode(cc.attrs.session)}(message) {
+                    try {
+                        eval(message);
+                    } catch (err) {
+                        console.log(err.message + '\n\n' + message);
+                    }
+                }
+            </script>
+            <script type="text/javascript">if (window.PrimeFaces){PrimeFaces.settings.locale = 'en_US'; PrimeFaces.settings.projectStage = 'Development'; }</script>
+            <link rel="stylesheet" type="text/css" href="wcdocker/font-awesome.min.css"/>
+            <script src="wcdocker/FileSaver.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wcdocker/wcDocker.min.css"/>
+            <script src="wcdocker/wcDocker.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="wjs/toastr.min.css"/>
+            <script src="wjs/toastr.min.js"></script>
+        </h:head>
+        <style>
+            .toast {
+                opacity: 1 !important;
+                font-family: arial;
+            }
+        </style>
+        <div id="dialogsContainer#{sessionBean.getHashCode(cc.attrs.session)}"/>
+        <o:socket channel="socketChannel" scope="view" onmessage="function(message) { eval#{sessionBean.getHashCode(cc.attrs.session)}(message); }"/>
+        <h:form enctype="multipart/form-data">
+            <h:inputFile id="fileLoader" class="fileLoader" value="#{sessionBean.file}" style="display:none">
+                <f:ajax listener="#{sessionBean.read(cc.attrs.session)}" render="@form"/>
+            </h:inputFile>
+        </h:form>
+        <script>
+            toastr.options.positionClass = 'toast-bottom-right';
+            toastr.options.progressBar = false;
+            toastr.options.preventDuplicates = true;
+        </script>
+    </composite:implementation>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <composite:interface>
+        <composite:attribute name="layout" type="gov.mil.navy.nswcdd.wachos.components.layout.Layout" required="true"/>
+        <composite:attribute name="session" type="gov.mil.navy.nswcdd.wachos.tools.WSession" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:commandScript name="changed#{cc.attrs.layout.id}" action="#{layout.fireEvent(cc.attrs.layout, cc.attrs.session)}"/>
+        <h:panelGroup id="#{cc.attrs.layout.id}" style="display:block; height:100%">
+            <h:outputText value="#{layout.getHtml(cc.attrs.layout, cc.attrs.session)}" escape="false"/>
+        </h:panelGroup>
+    </composite:implementation>
+</html>
