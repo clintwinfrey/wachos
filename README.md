@@ -21,3 +21,4 @@ To use wachos:
     * Download the latest version of GlassFish or WildFly
     * Clean/build and run the WebLauncher app with your downloaded web server
 
+To see the JavaDoc, you must generate JavaDoc from the wachos library
