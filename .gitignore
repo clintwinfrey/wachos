@@ -1,0 +1,6 @@
+/glassfish7
+/WinLauncher/libcef.dll
+/Win8Launcher/libcef.dll
+build
+dist
+private
