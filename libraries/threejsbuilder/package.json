@@ -1,0 +1,17 @@
+{
+  "name": "three-ultimate",
+  "version": "1.0.0",
+  "main": "dist/three.min.js",
+  "dependencies": {
+    "three": "^0.175.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rollup": "^4.17.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "scripts": {
+    "build": "rollup -c"
+  }
+}
