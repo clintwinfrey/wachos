@@ -113,7 +113,7 @@ public class WachosTutorial implements WachosGui {
                             new VBox(new Label(tutorial.title).setStyle("font-size", "25px").alignCenterH()).setWidth("1000px"), //you can also do .setProperty("css.font-size"
                             new VBox(tutorial.component.alignLeft()).setWidth("1000px").setBorder("Example", true),
                             new VBox(tutorial.snippet).setWidth("1000px").setBorder("Source", true),
-                            new VBox(new SimpleComponent("<iframe src='resource/" + tutorial.javadoc + "' height='500' width='1000' title='SimpleComponent Example'></iframe>")).setWidth("1000px").setBorder("JavaDoc", true)
+                            new VBox(new SimpleComponent("<iframe src='javadoc/" + tutorial.javadoc + "' height='500' width='1000' title='SimpleComponent Example'></iframe>")).setWidth("1000px").setBorder("JavaDoc", true)
                     );
                 }
             }
