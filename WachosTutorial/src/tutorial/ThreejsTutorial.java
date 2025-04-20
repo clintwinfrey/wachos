@@ -122,7 +122,7 @@ public class ThreejsTutorial {
                 + "                cube.threejsListeners.add(event -> session.postInfo(\"Increased X\", event)); //receive communication from threejs\n"
                 + "                threejsContainer.add(new Button(\"Toggle Paused\", action -> cube.threeExec(\"pressedTogglePaused\"))); //send communication to threejs\n"
                 + "                threejsContainer.add(cube);\n"
-                + "                threejsContainer.add(new CodeSnippet(\"[source of cube.js example]\");\n"
+                + "                threejsContainer.add(new CodeSnippet(\"[cube.js source code]\"));\n"
                 + "            }\n"
                 + "        });";
 
