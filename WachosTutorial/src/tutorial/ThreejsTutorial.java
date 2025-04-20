@@ -34,7 +34,9 @@ package tutorial;
 
 import gov.mil.navy.nswcdd.wachos.components.layout.VBox;
 import gov.mil.navy.nswcdd.wachos.components.text.Button;
+import gov.mil.navy.nswcdd.wachos.components.text.CodeSnippet;
 import gov.mil.navy.nswcdd.wachos.components.text.ComboBox;
+import gov.mil.navy.nswcdd.wachos.components.text.Label;
 import gov.mil.navy.nswcdd.wachos.components.threejs.Threejs;
 import gov.mil.navy.nswcdd.wachos.tools.WSession;
 import java.util.Arrays;
@@ -60,6 +62,46 @@ public class ThreejsTutorial {
                 cube.threejsListeners.add(event -> session.postInfo("Increased X", event)); //receive communication from threejs
                 threejsContainer.add(new Button("Toggle Paused", action -> cube.threeExec("pressedTogglePaused"))); //send communication to threejs
                 threejsContainer.add(cube);
+                threejsContainer.add(new CodeSnippet("/* global THREE */\n"
+                        + "\n"
+                        + "//this very simple example demonstrates everything needed to use three.js with wachos\n"
+                        + "const scene = new THREE.Scene();\n"
+                        + "const camera = new THREE.PerspectiveCamera(75, 500 / 500, 0.1, 1000);  // Aspect ratio 500/500\n"
+                        + "const renderer = new THREE.WebGLRenderer();\n"
+                        + "const canvas = document.getElementById('@wachoscanvas'); // <-- important!\n"
+                        + "\n"
+                        + "// Set renderer size to match the div size\n"
+                        + "renderer.setSize(canvas.clientWidth, canvas.clientHeight);\n"
+                        + "canvas.appendChild(renderer.domElement);\n"
+                        + "\n"
+                        + "const geometry = new THREE.BoxGeometry();\n"
+                        + "const material = new THREE.MeshBasicMaterial({color: 0x00ff00});\n"
+                        + "const cube = new THREE.Mesh(geometry, material);\n"
+                        + "scene.add(cube);\n"
+                        + "camera.position.z = 5;\n"
+                        + "\n"
+                        + "var lastX = 0;\n"
+                        + "var paused = false;\n"
+                        + "\n"
+                        + "// Receive info from wachos\n"
+                        + "function receiveFromWachos(input) {\n"
+                        + "    console.log(input);\n"
+                        + "    paused = !paused;\n"
+                        + "}\n"
+                        + "\n"
+                        + "function animate() {\n"
+                        + "    requestAnimationFrame(animate);\n"
+                        + "    if (!paused) {\n"
+                        + "        cube.rotation.x += 0.01;\n"
+                        + "        cube.rotation.y += 0.01;\n"
+                        + "        if (cube.rotation.x > lastX) {\n"
+                        + "            fireWachosEvent('x = ' + Math.round(cube.rotation.x)); //send info to wachos\n"
+                        + "            lastX += 5; //wait five degrees before posting again\n"
+                        + "        }\n"
+                        + "    }\n"
+                        + "    renderer.render(scene, camera);\n"
+                        + "}\n"
+                        + "animate();"));
             }
         });
 
@@ -72,19 +114,20 @@ public class ThreejsTutorial {
                 + "        ComboBox threeSelector = new ComboBox(\"Geometries\", Arrays.asList(\"Geometries\", \"Soldier\", \"Cube\"), selection -> {\n"
                 + "            threejsContainer.removeAll();\n"
                 + "            if (selection.equals(\"Soldier\")) {\n"
-                + "                Threejs soldier = new Threejs(\"threejsexamples/webgl_animation_walk.js\").setWidth(\"100%\").setHeight(\"400px\");\n"
-                + "                soldier.threejsListeners.add(event -> session.postInfo(\"Movement\", event));\n"
-                + "                threejsContainer.add(new Button(\"Run Faster\", action -> soldier.threeExec(\"runFaster\"))); //communicate with javascript via wachos button\n"
-                + "                threejsContainer.add(soldier);\n"
+                + "                threejsContainer.add(new Threejs(\"threejsexamples/webgl_animation_walk.js\").setWidth(\"100%\").setHeight(\"400px\"));\n"
                 + "            } else if (selection.equals(\"Geometries\")) {\n"
                 + "                threejsContainer.add(new Threejs(\"threejsexamples/webgl_geometries.js\").setWidth(\"100%\").setHeight(\"400px\"));\n"
                 + "            } else if (selection.equals(\"Cube\")) {\n"
-                + "                threejsContainer.add(new Threejs(\"threejsexamples/cube.js\").setWidth(\"100%\").setHeight(\"400px\"));\n"
+                + "                Threejs cube = new Threejs(\"threejsexamples/cube.js\").setWidth(\"100%\").setHeight(\"400px\");\n"
+                + "                cube.threejsListeners.add(event -> session.postInfo(\"Increased X\", event)); //receive communication from threejs\n"
+                + "                threejsContainer.add(new Button(\"Toggle Paused\", action -> cube.threeExec(\"pressedTogglePaused\"))); //send communication to threejs\n"
+                + "                threejsContainer.add(cube);\n"
+                + "                threejsContainer.add(new CodeSnippet(\"[source of cube.js example]\");\n"
                 + "            }\n"
                 + "        });";
 
         return new Tutorial("Threejs", "gov/mil/navy/nswcdd/wachos/components/text/Button.html",
-                new VBox(threeSelector, threejsContainer).setWidth("100%"), code);
+                new VBox(new Label("Select 'Cube' to see simple JavaScript code used with wachos"), threeSelector, threejsContainer).setWidth("100%"), code);
     }
 
 }

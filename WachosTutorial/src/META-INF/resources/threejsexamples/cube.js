@@ -1,8 +1,10 @@
 /* global THREE */
+
+//this very simple example demonstrates everything needed to use three.js with wachos
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 500 / 500, 0.1, 1000);  // Aspect ratio 500/500
 const renderer = new THREE.WebGLRenderer();
-const canvas = document.getElementById('@wachoscanvas');
+const canvas = document.getElementById('@wachoscanvas'); // <-- important!
 
 // Set renderer size to match the div size
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
@@ -17,7 +19,7 @@ camera.position.z = 5;
 var lastX = 0;
 var paused = false;
 
-// Receives an input from wachos
+// Receive info from wachos
 function receiveFromWachos(input) {
     console.log(input);
     paused = !paused;
@@ -29,7 +31,7 @@ function animate() {
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
         if (cube.rotation.x > lastX) {
-            fireWachosEvent('x = ' + Math.round(cube.rotation.x)); //sends info to wachos
+            fireWachosEvent('x = ' + Math.round(cube.rotation.x)); //send info to wachos
             lastX += 5; //wait five degrees before posting again
         }
     }
