@@ -99,8 +99,8 @@ public class Threejs extends Component {
                 try {
                     String str = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("META-INF/resources/" + script))).lines().collect(Collectors.joining("\n"));
                     if (str.contains("@wachoscanvas") || str.contains("fireWachosEvent(") || str.contains("receiveFromWachos(")) {
-                        String regex = "fireWachosEvent\\('(\\w+)'\\)";
-                        String replacement = "changed" + layoutId + "({id: '" + getId() + "', value: '$1'})";
+                        String regex = "fireWachosEvent\\((.*?)\\);";
+                        String replacement = "changed" + layoutId + "({id: '" + getId() + "', value: $1})";
                         sb.append("<script>" + str.replace("@wachoscanvas", getId()).replaceAll(regex, replacement).replace("receiveFromWachos(", "receiveFrom" + getId() + "(") + "</script>\n");
                         includeScript = true;
                     }

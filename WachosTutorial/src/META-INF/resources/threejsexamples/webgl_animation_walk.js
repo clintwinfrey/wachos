@@ -306,13 +306,6 @@ function setWeight(action, weight) {
     action.setEffectiveWeight(weight);
 }
 
-// Receives an input from wachos
-function receiveFromWachos(input) {
-    if (input === "runFaster") {
-        controls.runVelocity = controls.runVelocity + 1; //increase speed!
-    }
-}
-
 // Handle key press events
 function onKeyDown(event) {
     switch (event.code) {
@@ -320,23 +313,19 @@ function onKeyDown(event) {
         case 'KeyW':
         case 'KeyZ':
             controls.key[0] = -1; // Move forward
-            fireWachosEvent('forward');
             break;
         case 'ArrowDown':
         case 'KeyS':
             controls.key[0] = 1; // Move backward
-            fireWachosEvent('backward');
             break;
         case 'ArrowLeft':
         case 'KeyA':
         case 'KeyQ':
             controls.key[1] = -1; // Move left
-            fireWachosEvent('left');
             break;
         case 'ArrowRight':
         case 'KeyD':
             controls.key[1] = 1; // Move right
-            fireWachosEvent('right');
             break;
         case 'ShiftLeft':
         case 'ShiftRight':

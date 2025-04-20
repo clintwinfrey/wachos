@@ -52,14 +52,14 @@ public class ThreejsTutorial {
         ComboBox threeSelector = new ComboBox("Geometries", Arrays.asList("Geometries", "Soldier", "Cube"), selection -> {
             threejsContainer.removeAll();
             if (selection.equals("Soldier")) {
-                Threejs soldier = new Threejs("threejsexamples/webgl_animation_walk.js").setWidth("100%").setHeight("400px");
-                soldier.threejsListeners.add(event -> session.postInfo("Movement", event));
-                threejsContainer.add(new Button("Run Faster", action -> soldier.threeExec("runFaster"))); //communicate with javascript via wachos button
-                threejsContainer.add(soldier);
+                threejsContainer.add(new Threejs("threejsexamples/webgl_animation_walk.js").setWidth("100%").setHeight("400px"));
             } else if (selection.equals("Geometries")) {
                 threejsContainer.add(new Threejs("threejsexamples/webgl_geometries.js").setWidth("100%").setHeight("400px"));
             } else if (selection.equals("Cube")) {
-                threejsContainer.add(new Threejs("threejsexamples/cube.js").setWidth("100%").setHeight("400px"));
+                Threejs cube = new Threejs("threejsexamples/cube.js").setWidth("100%").setHeight("400px");
+                cube.threejsListeners.add(event -> session.postInfo("Increased X", event)); //receive communication from threejs
+                threejsContainer.add(new Button("Toggle Paused", action -> cube.threeExec("pressedTogglePaused"))); //send communication to threejs
+                threejsContainer.add(cube);
             }
         });
 

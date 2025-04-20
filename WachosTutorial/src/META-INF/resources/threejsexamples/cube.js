@@ -1,5 +1,4 @@
 /* global THREE */
-
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 500 / 500, 0.1, 1000);  // Aspect ratio 500/500
 const renderer = new THREE.WebGLRenderer();
@@ -9,16 +8,31 @@ const canvas = document.getElementById('@wachoscanvas');
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 canvas.appendChild(renderer.domElement);
 
-const geometry1 = new THREE.BoxGeometry();
-const material1 = new THREE.MeshBasicMaterial({color: 0x00ff00});
-const cube1 = new THREE.Mesh(geometry1, material1);
-scene.add(cube1);
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 camera.position.z = 5;
+
+var lastX = 0;
+var paused = false;
+
+// Receives an input from wachos
+function receiveFromWachos(input) {
+    console.log(input);
+    paused = !paused;
+}
 
 function animate() {
     requestAnimationFrame(animate);
-    cube1.rotation.x += 0.01;
-    cube1.rotation.y += 0.01;
+    if (!paused) {
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        if (cube.rotation.x > lastX) {
+            fireWachosEvent('x = ' + Math.round(cube.rotation.x)); //sends info to wachos
+            lastX += 5; //wait five degrees before posting again
+        }
+    }
     renderer.render(scene, camera);
 }
 animate();
