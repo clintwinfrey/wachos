@@ -30,10 +30,8 @@
  * @version 1.0
  * @since 2025
  */
-package gov.mil.navy.nswcdd.wachos.components.threejs;
+package gov.mil.navy.nswcdd.wachos.components;
 
-import gov.mil.navy.nswcdd.wachos.components.Component;
-import gov.mil.navy.nswcdd.wachos.components.ComponentListeners;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;

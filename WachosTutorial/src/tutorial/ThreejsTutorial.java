@@ -37,7 +37,7 @@ import gov.mil.navy.nswcdd.wachos.components.text.Button;
 import gov.mil.navy.nswcdd.wachos.components.text.CodeSnippet;
 import gov.mil.navy.nswcdd.wachos.components.text.ComboBox;
 import gov.mil.navy.nswcdd.wachos.components.text.Label;
-import gov.mil.navy.nswcdd.wachos.components.threejs.Threejs;
+import gov.mil.navy.nswcdd.wachos.components.Threejs;
 import gov.mil.navy.nswcdd.wachos.tools.WSession;
 import java.util.Arrays;
 
@@ -126,8 +126,8 @@ public class ThreejsTutorial {
                 + "            }\n"
                 + "        });";
 
-        return new Tutorial("Threejs", "gov/mil/navy/nswcdd/wachos/components/text/Button.html",
-                new VBox(new Label("Select 'Cube' to see simple JavaScript code used with wachos"), threeSelector, threejsContainer).setWidth("100%"), code);
+        return new Tutorial("Threejs", "gov/mil/navy/nswcdd/wachos/components/Threejs.html",
+                new VBox(new Label("Select 'Cube' to see simple JavaScript code with Java communication"), threeSelector, threejsContainer).setWidth("100%"), code);
     }
 
 }
