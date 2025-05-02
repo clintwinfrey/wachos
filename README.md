@@ -1,6 +1,8 @@
 # wachos
 Wachos is a Java GUI library that lets you write Java code once, and deploy that code on the web, desktop, or Android.
 
+I made a video of it here: https://youtu.be/X3R_m-jyNLU
+
 To use wachos:
  - Clone the repository
  - Clean/build the wachos library
